@@ -29,8 +29,8 @@ researcher = Agent(
   goal=f'Uncover cutting-edge developments in {research_topic}',
   backstory=(
     "You are a Senior Research Analyst at a leading tech think tank."
-    f"Your expertise lies in {research_question}"
-    "You MUST use the search tool in order to data and presenting actionable insights."
+    f"Your require to investigate the {research_question} until you satisfy the Tech Content Writer"
+    "You MUST use the search tool in order to collect sufficent data and present your technical insights to he Tech Content Writer."
   ),
   verbose=True,
   allow_delegation=False,
@@ -39,12 +39,11 @@ researcher = Agent(
   max_rpm=100
 )
 writer = Agent(
-  role='Tech Content Strategist',
-  goal='Craft compelling content on tech advancements',
+  role='Tech Content Writer',
+  goal='Craft a compelling content on the Senrio Research Analyst findings',
   backstory=(
-    "You are a renowned Tech Content Strategist, known for your insightful and engaging articles on technology and innovation."
-    "With a deep understanding of the tech industry, you transform complex concepts into compelling narratives."
-    "As a final step you are to provide a tabular formatted markdown file with the content of the blog post including theme, positive and negative implications."
+    "You are a renowned Tech Content Writer, known for your sharp and engaging articles on technology and innovation."
+    "With a deep understanding of the technical writing, you transform complex concepts into compelling narratives."
   ),
   verbose=True,
   allow_delegation=False,
@@ -57,11 +56,10 @@ writer = Agent(
 task1 = Task(
   description=(
     f"Conduct a comprehensive analysis of {research_topic}, focusing on {research_question}"
-    "Identify key trends, breakthrough technologies, and potential industry impacts."
+    "Identify key trends, breakthrough technologies, and highlight potential industry disruption."
     "Compile your findings in a detailed report."
-    "Make sure to check with a human if the draft is good before finalizing your answer."
   ),
-  expected_output=f'A comprehensive full report on {research_topic} and leave nothing out',
+  expected_output=f'A comprehensive full report on {research_topic} focusing ont the {research_question}',
   agent=researcher,
   human_input=False,
 )
@@ -71,8 +69,9 @@ task2 = Task(
     "Using the insights from the researcher's report, develop an engaging blog post that highlights the most significant findings."
     "Your post should be informative yet accessible, catering to a tech-savvy audience."
     "Aim for a narrative that captures the essence of these breakthroughs and their implications for the future."
+    "As a final step you are to provide a tabular formatted markdown file with the content of the blog post including theme, positive and negative implications."
   ),
-  expected_output=f'A compelling 3 paragraphs blog post formatted as markdown about the {research_topic} ',
+  expected_output=f'Provide markdown formatted blog post responding to the {research_question}, if tables are required make sure tabular markdown is used',
   agent=writer
 )
 
@@ -88,3 +87,5 @@ result = crew.kickoff()
 
 print("######################")
 print(result)
+
+
